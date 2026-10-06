@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Shoopee | Services</title>
+    <style>
+
+        /* ---------- RESET ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+        }
+        .hero-visual img {
+    width: 100%;
+    max-width: 500px;
+    transition: transform 0.5s ease, filter 0.5s ease;
+    animation: floatImage 4s ease-in-out infinite;
+}
+
+.hero-visual img:hover {
+    transform: scale(1.08) rotate(2deg);
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.25));
+}
+
+.logo {
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.logo:hover {
+    transform: scale(1.08);
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+}
+@keyframes floatImage {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+        .nav-links a.active {
+            color: #7b2ff7;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* ---------- HEADER ---------- */
+        header {
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ---------- NAVBAR ---------- */
+        .navbar {
+            max-width: 1300px;
+            margin: auto;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+
+        /* ---------- LOGO ---------- */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 55px;
+            height: 55px;
+            object-fit: contain;
+            border-radius: 50%;
+            transition: 0.4s ease;
+        }
+
+        .logo:hover img {
+            transform: rotate(8deg) scale(1.05);
+        }
+
+        .logo span {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(90deg, #7b2ff7, #f107a3);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ---------- NAVIGATION ---------- */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            position: relative;
+            display: inline-block;
+            text-decoration: none;
+            color: #222;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 10px 0;
+            transition: 0.3s ease;
+        }
+
+        /* ---------- NAV HOVER ---------- */
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 3px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #7b2ff7, #f107a3);
+            transition: 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #7b2ff7;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ---------- DROPDOWN ---------- */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 40px;
+            left: -20px;
+            width: 180px;
+            background: white;
+            border-radius: 12px;
+            padding: 10px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: 0.3s ease;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+        }
+
+        .dropdown-menu a::after {
+            display: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: #f5efff;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* ---------- BUTTONS ---------- */
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s ease;
+        }
+
+        .login-btn {
+            color: #7b2ff7;
+            border: 2px solid #7b2ff7;
+        }
+
+        .login-btn:hover {
+            color: white;
+            background: #7b2ff7;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(123, 47, 247, 0.3);
+        }
+
+        .start-btn {
+            color: white;
+            background: linear-gradient(135deg, #7b2ff7, #f107a3);
+            border: 2px solid transparent;
+        }
+
+        .start-btn:hover {
+            color: white;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(241, 7, 163, 0.35);
+        }
+
+        /* ---------- RESPONSIVE NAVIGATION ---------- */
+        @media (max-width: 1000px) {
+            .navbar {
+                height: auto;
+                min-height: 80px;
+                flex-wrap: wrap;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .logo span {
+                font-size: 20px;
+            }
+
+            .logo img {
+                width: 48px;
+                height: 48px;
+            }
+
+            .nav-buttons {
+                gap: 7px;
+            }
+
+            .btn {
+                padding: 10px 14px;
+                font-size: 12px;
+            }
+
+            .nav-links {
+                gap: 14px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+            }
+        }
+
+        /* ---------- PAGE CONTENT ---------- */
+
+        .content { padding: 80px 20px; text-align: center; }
+        h1 { font-size: 45px; color: #7b2ff7; margin-bottom: 40px; }
+        .services { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; }
+        .card { width: 250px; padding: 30px; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); }
+        .card h2 { color: #7b2ff7; margin-bottom: 15px; }
+        .card p { color: #666; line-height: 1.6; }
+        @media (max-width: 600px) { h1 { font-size: 36px; } }
+
+
+/* ---------- PAGE HERO BANNER ---------- */
+.hero-banner{max-width:1250px;margin:55px auto 40px;padding:65px 70px;min-height:430px;border-radius:32px;background:linear-gradient(135deg,#f7f2ff 0%,#fff 52%,#fff1fa 100%);display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:45px;overflow:hidden;position:relative;box-shadow:0 18px 55px rgba(123,47,247,.12)}
+.hero-banner::before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:rgba(123,47,247,.07);top:-130px;right:25%;}
+.hero-copy{position:relative;z-index:1}.hero-kicker{display:inline-block;padding:8px 16px;border-radius:30px;background:#eee5ff;color:#7b2ff7;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:18px}.hero-copy h1{font-size:clamp(38px,5vw,62px);line-height:1.05;margin:0 0 20px;background:linear-gradient(90deg,#7b2ff7,#f107a3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}.hero-copy p{font-size:18px;line-height:1.8;color:#555;max-width:620px;margin-bottom:30px}.hero-actions{display:flex;gap:14px;flex-wrap:wrap}.hero-btn{display:inline-block;text-decoration:none;padding:14px 25px;border-radius:30px;font-weight:700;transition:.3s ease}.hero-primary{color:white;background:linear-gradient(135deg,#7b2ff7,#f107a3);box-shadow:0 10px 24px rgba(123,47,247,.22)}.hero-secondary{color:#7b2ff7;border:2px solid #7b2ff7;background:white}.hero-btn:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(123,47,247,.22)}.hero-visual{position:relative;z-index:1}.hero-visual img{width:100%;max-width:560px;display:block;margin:auto;border-radius:28px;filter:drop-shadow(0 20px 25px rgba(123,47,247,.12))}
+@media(max-width:900px){.hero-banner{grid-template-columns:1fr;padding:50px 35px;text-align:center}.hero-copy p{margin-left:auto;margin-right:auto}.hero-actions{justify-content:center}.hero-visual img{max-width:500px}}
+@media(max-width:600px){.hero-banner{margin:30px 15px;padding:38px 22px;min-height:auto;border-radius:24px}.hero-copy h1{font-size:40px}.hero-copy p{font-size:16px}.hero-actions{flex-direction:column}.hero-btn{width:100%;text-align:center}}
+
+    
+/* =========================================================
+   RESPONSIVE OVERLAY - keeps every page usable on phones
+   tablets and desktops without changing the existing design
+========================================================= */
+html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img, svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.navbar {
+    width: 100%;
+}
+
+.hero-banner {
+    width: min(1250px, calc(100% - 40px));
+}
+
+@media (max-width: 1100px) {
+    .navbar {
+        height: auto !important;
+        min-height: 80px;
+        flex-wrap: wrap;
+        row-gap: 12px;
+        padding: 14px 24px !important;
+    }
+
+    .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 18px !important;
+    }
+
+    .nav-buttons {
+        flex-shrink: 0;
+    }
+}
+
+@media (max-width: 900px) {
+    .hero-banner {
+        width: calc(100% - 30px);
+        margin: 30px auto !important;
+        grid-template-columns: 1fr !important;
+        text-align: center;
+        padding: 48px 28px !important;
+    }
+
+    .hero-copy {
+        max-width: 760px;
+        margin: 0 auto;
+    }
+
+    .hero-copy p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .hero-visual {
+        width: 100%;
+    }
+
+    .hero-visual img {
+        width: min(100%, 520px) !important;
+        margin: 0 auto;
+    }
+
+    .services-container,
+    .testimonials-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 700px) {
+    .navbar {
+        padding: 12px 16px !important;
+    }
+
+    .logo span {
+        font-size: 20px !important;
+    }
+
+    .logo img {
+        width: 48px !important;
+        height: 48px !important;
+    }
+
+    .nav-buttons {
+        gap: 7px !important;
+    }
+
+    .nav-buttons .btn {
+        padding: 9px 13px !important;
+        font-size: 12px !important;
+    }
+
+    .nav-links {
+        gap: 10px 16px !important;
+    }
+
+    .nav-links a {
+        font-size: 14px !important;
+    }
+
+    .dropdown-menu {
+        left: 50%;
+        transform: translate(-50%, 10px);
+        width: 170px;
+    }
+
+    .dropdown:hover .dropdown-menu {
+        transform: translate(-50%, 0);
+    }
+
+    .hero-banner {
+        width: calc(100% - 24px);
+        padding: 38px 20px !important;
+        border-radius: 24px !important;
+    }
+
+    .hero-copy h1 {
+        font-size: clamp(32px, 10vw, 44px) !important;
+    }
+
+    .hero-copy p {
+        font-size: 15px !important;
+        line-height: 1.7 !important;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        align-items: stretch;
+    }
+
+    .hero-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .services-container,
+    .testimonials-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .services-section,
+    .testimonials-section {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    .service-card {
+        width: 100%;
+    }
+
+    .testimonials-heading h2,
+    .services-heading h2 {
+        font-size: 28px !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .logo {
+        gap: 7px !important;
+    }
+
+    .logo span {
+        font-size: 18px !important;
+    }
+
+    .logo img {
+        width: 42px !important;
+        height: 42px !important;
+    }
+
+    .nav-buttons .btn {
+        padding: 8px 10px !important;
+    }
+
+    .nav-links {
+        gap: 8px 12px !important;
+    }
+
+    .nav-links a {
+        font-size: 13px !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ===== EXTRAORDINARY INNER PAGE SECTIONS ===== */
+.inner-section{max-width:1250px;margin:0 auto;padding:78px 30px}
+.section-heading{text-align:center;max-width:760px;margin:0 auto 46px}
+.section-tag{display:inline-block;font-size:12px;letter-spacing:2.5px;font-weight:800;color:#7b2ff7;margin-bottom:12px}
+.section-heading h2{font-size:42px;line-height:1.12;color:#18131f;margin-bottom:14px}
+.section-heading p{color:#6f6879;font-size:17px;line-height:1.8}
+.story-grid,.split-showcase{display:grid;grid-template-columns:1.05fr .95fr;gap:55px;align-items:center}
+.story-copy h2,.split-copy h2{font-size:36px;color:#21172a;margin-bottom:16px}
+.story-copy p,.split-copy p{font-size:16px;line-height:1.9;color:#6f6879;margin-bottom:18px}
+.check-list{list-style:none;display:grid;gap:13px;margin-top:22px}
+.check-list li{padding-left:32px;position:relative;color:#39313f;font-weight:600}
+.check-list li::before{content:"✓";position:absolute;left:0;top:-2px;width:23px;height:23px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#7b2ff7,#f107a3);color:#fff;font-size:13px}
+.visual-card{background:linear-gradient(145deg,#fff,#f7f1ff);border:1px solid rgba(123,47,247,.1);border-radius:34px;padding:18px;box-shadow:0 24px 70px rgba(75,40,120,.12);overflow:hidden}
+.visual-card img{display:block;width:100%;border-radius:24px;transition:transform .6s ease,filter .6s ease}
+.visual-card:hover img{transform:scale(1.045);filter:saturate(1.08)}
+.value-grid,.process-grid,.service-detail-grid,.product-grid,.contact-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.info-card,.service-detail-card,.product-card,.contact-card{background:#fff;border:1px solid #eee8f6;border-radius:24px;padding:28px;box-shadow:0 14px 45px rgba(35,20,55,.07);transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease}
+.info-card:hover,.service-detail-card:hover,.product-card:hover,.contact-card:hover{transform:translateY(-9px);box-shadow:0 24px 55px rgba(70,30,110,.14);border-color:rgba(123,47,247,.24)}
+.card-icon{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;background:linear-gradient(135deg,#7b2ff7,#f107a3);color:#fff;font-size:23px;margin-bottom:20px;box-shadow:0 10px 25px rgba(123,47,247,.22)}
+.info-card h3,.service-detail-card h3,.product-card h3,.contact-card h3{font-size:22px;color:#24182c;margin-bottom:10px}
+.info-card p,.service-detail-card p,.product-card p,.contact-card p{color:#706879;line-height:1.75}
+.stats-strip{background:linear-gradient(135deg,#7b2ff7,#f107a3);border-radius:32px;padding:35px;color:#fff;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;box-shadow:0 25px 55px rgba(123,47,247,.2)}
+.stat{text-align:center}.stat strong{display:block;font-size:35px}.stat span{font-size:14px;opacity:.9}
+.service-detail-card,.product-card{padding:0;overflow:hidden}.card-image{width:100%;height:210px;object-fit:cover;display:block;transition:transform .6s ease}.service-detail-card:hover .card-image,.product-card:hover .card-image{transform:scale(1.05)}
+.card-body{padding:25px}.card-body .mini-link{display:inline-flex;margin-top:18px;color:#7b2ff7;text-decoration:none;font-weight:800;gap:7px;transition:gap .3s ease}.mini-link:hover{gap:12px}
+.service-detail-card .service-number{font-size:12px;letter-spacing:2px;color:#a096ad;font-weight:800;margin-bottom:8px;display:block}
+.product-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.pill{padding:7px 11px;border-radius:30px;background:#f4effb;color:#655a70;font-size:12px;font-weight:700}
+.process-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.process-card{position:relative}.process-card::after{content:"→";position:absolute;right:-16px;top:43px;color:#b9a8ca;font-size:25px}.process-card:last-child::after{display:none}
+.contact-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;align-items:stretch}.contact-side{display:grid;gap:20px}.contact-form-wrap{background:#fff;border:1px solid #eee8f6;border-radius:30px;padding:34px;box-shadow:0 18px 55px rgba(35,20,55,.08)}.contact-form-wrap h2{font-size:30px;margin-bottom:8px;color:#23172b}.contact-form-wrap>p{color:#756c7c;line-height:1.7;margin-bottom:24px}.contact-form{display:grid;grid-template-columns:1fr 1fr;gap:17px}.field{display:flex;flex-direction:column;gap:8px}.field.full{grid-column:1/-1}.field label{font-size:13px;font-weight:800;color:#40364a}.field input,.field select,.field textarea{width:100%;border:1px solid #ddd6e7;background:#fbfaff;border-radius:14px;padding:14px 15px;font:inherit;color:#2b2431;outline:none;transition:border-color .3s ease,box-shadow .3s ease,transform .3s ease}.field textarea{min-height:135px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#7b2ff7;box-shadow:0 0 0 4px rgba(123,47,247,.1);transform:translateY(-1px)}.form-options{display:flex;flex-wrap:wrap;gap:15px}.form-options label{display:flex;align-items:center;gap:7px;color:#62586b;font-size:14px}.form-options input{width:auto}.form-submit{grid-column:1/-1;border:0;border-radius:15px;padding:15px 22px;background:linear-gradient(135deg,#7b2ff7,#f107a3);color:#fff;font-weight:800;font-size:15px;cursor:pointer;transition:transform .3s ease,box-shadow .3s ease}.form-submit:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(123,47,247,.25)}
+.site-footer{margin-top:35px;background:#17111d;color:#fff;padding:42px 30px}.footer-inner{max-width:1250px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:25px}.footer-brand{font-size:22px;font-weight:800;background:linear-gradient(90deg,#a979ff,#ff62c4);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}.footer-inner p{color:#bdb4c7;font-size:14px}.footer-links{display:flex;gap:20px}.footer-links a{color:#d8d0df;text-decoration:none;font-size:14px;transition:color .3s ease}.footer-links a:hover{color:#fff}
+@media(max-width:900px){.story-grid,.split-showcase,.contact-layout{grid-template-columns:1fr}.value-grid,.service-detail-grid,.product-grid,.contact-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.process-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.process-card::after{display:none}.stats-strip{grid-template-columns:repeat(2,1fr)}.section-heading h2{font-size:34px}}
+@media(max-width:600px){.inner-section{padding:58px 18px}.value-grid,.service-detail-grid,.product-grid,.contact-cards,.process-grid{grid-template-columns:1fr}.stats-strip{grid-template-columns:1fr 1fr;padding:25px 15px}.stat strong{font-size:29px}.story-copy h2,.split-copy h2{font-size:29px}.contact-form{grid-template-columns:1fr}.field.full,.form-submit{grid-column:auto}.contact-form-wrap{padding:24px}.footer-inner{flex-direction:column;text-align:center}.footer-links{flex-wrap:wrap;justify-content:center}.card-image{height:190px}}
+
+</style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <img src="IMG_0104.PNG" alt="Website Logo">
+                <span>My Shoopee</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+                <li class="dropdown">
+                    <a href="products.html">Products ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="products.html">All Products</a>
+                        <a href="products.html">New Arrivals</a>
+                        <a href="products.html">Popular Products</a>
+                    </div>
+                </li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <div class="nav-buttons">
+                <a href="login.html" class="btn login-btn">Login</a>
+                <a href="login.html" class="btn start-btn">Get Started</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero-banner">
+        <div class="hero-copy">
+            <span class="hero-kicker">Our Services</span>
+            <h1>Solutions that move you forward</h1>
+            <p>Explore thoughtful design, development and support services created around your needs.</p>
+            <div class="hero-actions">
+                <a href="products.html" class="hero-btn hero-primary">View Products</a>
+                <a href="login.html" class="hero-btn hero-secondary">Get Started</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <img src="services-hero.svg" alt="Our Services banner illustration">
+        </div>
+    </section>
+
+
+    
+    <section class="inner-section">
+      <div class="section-heading"><span class="section-tag">WHAT WE DO</span><h2>Six services. One complete digital journey.</h2><p>Each service connects to the next, so you can start with a single requirement or build a complete website experience with us.</p></div>
+      <div class="service-detail-grid">
+        <article class="service-detail-card"><img class="card-image" src="assets/service-web.svg" alt="Web development illustration"><div class="card-body"><span class="service-number">01 · BUILD</span><h3>Web Development</h3><p>Semantic HTML, modern CSS and interactive front-end development for fast, maintainable websites.</p><a class="mini-link" href="web-devolopment.html">Explore service →</a></div></article>
+        <article class="service-detail-card"><img class="card-image" src="assets/service-uiux.svg" alt="UI UX design illustration"><div class="card-body"><span class="service-number">02 · DESIGN</span><h3>UI / UX Design</h3><p>Clear information architecture, visual systems and user journeys designed around real visitor needs.</p><a class="mini-link" href="ui-ux-design.html">Explore service →</a></div></article>
+        <article class="service-detail-card"><img class="card-image" src="assets/service-digital.svg" alt="Digital solutions dashboard illustration"><div class="card-body"><span class="service-number">03 · SOLVE</span><h3>Digital Solutions</h3><p>Custom digital experiences that connect business goals, content, workflows and useful functionality.</p><a class="mini-link" href="digital-solutions.html">Explore service →</a></div></article>
+        <article class="service-detail-card"><img class="card-image" src="assets/service-responsive.svg" alt="Responsive design illustration"><div class="card-body"><span class="service-number">04 · ADAPT</span><h3>Responsive Design</h3><p>Layouts that adapt gracefully across desktops, tablets and phones without losing clarity or style.</p><a class="mini-link" href="responsive-design.html">Explore service →</a></div></article>
+        <article class="service-detail-card"><img class="card-image" src="assets/service-performance.svg" alt="Performance optimization illustration"><div class="card-body"><span class="service-number">05 · OPTIMIZE</span><h3>Performance Optimization</h3><p>Focused improvements for loading speed, efficient assets, clean structure and smoother interactions.</p><a class="mini-link" href="performance-optimization.html">Explore service →</a></div></article>
+        <article class="service-detail-card"><img class="card-image" src="assets/service-support.svg" alt="Technical support illustration"><div class="card-body"><span class="service-number">06 · SUPPORT</span><h3>Technical Support</h3><p>Reliable maintenance, troubleshooting and guidance to keep your digital experience healthy.</p><a class="mini-link" href="technical-support.html">Explore service →</a></div></article>
+      </div>
+    </section>
+    <section class="inner-section" style="padding-top:5px"><div class="section-heading"><span class="section-tag">OUR PROCESS</span><h2>From first idea to confident launch</h2></div><div class="process-grid"><article class="info-card process-card"><div class="card-icon">01</div><h3>Discover</h3><p>We clarify goals, audience, content and technical needs.</p></article><article class="info-card process-card"><div class="card-icon">02</div><h3>Design</h3><p>We shape the visual direction, layout and user experience.</p></article><article class="info-card process-card"><div class="card-icon">03</div><h3>Build</h3><p>We turn the approved direction into responsive pages and components.</p></article><article class="info-card process-card"><div class="card-icon">04</div><h3>Improve</h3><p>We test, optimize and support the experience after launch.</p></article></div></section>
+    
+<footer class="site-footer"><div class="footer-inner"><div><div class="footer-brand">My Shoopee</div><p>Thoughtful design. Practical technology. Better digital experiences.</p></div><div class="footer-links"><a href="about.html">About</a><a href="services.html">Services</a><a href="products.html">Products</a><a href="contact.html">Contact</a></div></div></footer>
+</body>
+</html>

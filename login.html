@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Shoopee | Login</title>
+    <style>
+
+        /* ---------- RESET ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+        }
+
+        /* ---------- HEADER ---------- */
+        header {
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ---------- NAVBAR ---------- */
+        .navbar {
+            max-width: 1300px;
+            margin: auto;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+
+        /* ---------- LOGO ---------- */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 55px;
+            height: 55px;
+            object-fit: contain;
+            border-radius: 50%;
+            transition: 0.4s ease;
+        }
+
+        .logo:hover img {
+            transform: rotate(8deg) scale(1.05);
+        }
+
+        .logo span {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(90deg, #7b2ff7, #f107a3);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ---------- NAVIGATION ---------- */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            position: relative;
+            display: inline-block;
+            text-decoration: none;
+            color: #222;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 10px 0;
+            transition: 0.3s ease;
+        }
+
+        /* ---------- NAV HOVER ---------- */
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 3px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #7b2ff7, #f107a3);
+            transition: 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #7b2ff7;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ---------- DROPDOWN ---------- */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 40px;
+            left: -20px;
+            width: 180px;
+            background: white;
+            border-radius: 12px;
+            padding: 10px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: 0.3s ease;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+        }
+
+        .dropdown-menu a::after {
+            display: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: #f5efff;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* ---------- BUTTONS ---------- */
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s ease;
+        }
+
+        .login-btn {
+            color: #7b2ff7;
+            border: 2px solid #7b2ff7;
+        }
+
+        .login-btn:hover {
+            color: white;
+            background: #7b2ff7;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(123, 47, 247, 0.3);
+        }
+
+        .start-btn {
+            color: white;
+            background: linear-gradient(135deg, #7b2ff7, #f107a3);
+            border: 2px solid transparent;
+        }
+
+        .start-btn:hover {
+            color: white;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(241, 7, 163, 0.35);
+        }
+
+        /* ---------- RESPONSIVE NAVIGATION ---------- */
+        @media (max-width: 1000px) {
+            .navbar {
+                height: auto;
+                min-height: 80px;
+                flex-wrap: wrap;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .logo span {
+                font-size: 20px;
+            }
+
+            .logo img {
+                width: 48px;
+                height: 48px;
+            }
+
+            .nav-buttons {
+                gap: 7px;
+            }
+
+            .btn {
+                padding: 10px 14px;
+                font-size: 12px;
+            }
+
+            .nav-links {
+                gap: 14px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+            }
+        }
+
+        /* ---------- LOGIN PAGE ---------- */
+        body { min-height: 100vh; }
+        .login-page { min-height: calc(100vh - 80px); display: flex; justify-content: center; align-items: center; padding: 50px 20px; background: linear-gradient(135deg, #f5f7fb, #faf4ff); }
+        .login-container { width: 400px; padding: 40px; background: white; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
+        .login-container h1 { text-align: center; margin-bottom: 10px; color: #333; }
+        .login-container p { text-align: center; color: #777; margin-bottom: 30px; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #333; }
+        .input-group input { width: 100%; padding: 13px 15px; border: 1px solid #ddd; border-radius: 10px; outline: none; font-size: 15px; transition: 0.3s; }
+        .input-group input:focus { border-color: #7b2ff7; box-shadow: 0 0 8px rgba(123,47,247,0.2); }
+        .login-button { width: 100%; padding: 14px; border: none; border-radius: 30px; color: white; font-size: 16px; font-weight: bold; cursor: pointer; background: linear-gradient(135deg,#7b2ff7,#f107a3); transition: 0.3s; }
+        .login-button:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(123,47,247,0.35); }
+        .back { display: block; text-align: center; margin-top: 20px; color: #7b2ff7; text-decoration: none; font-weight: bold; }
+        .back:hover { text-decoration: underline; }
+        @media (max-width: 500px) { .login-container { width: 100%; padding: 30px; } }
+
+        .hero-visual img {
+    width: 100%;
+    max-width: 500px;
+    transition: transform 0.5s ease, filter 0.5s ease;
+    animation: floatImage 4s ease-in-out infinite;
+}
+
+.hero-visual img:hover {
+    transform: scale(1.08) rotate(2deg);
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.25));
+}
+.logo {
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.logo:hover {
+    transform: scale(1.08);
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+}
+
+@keyframes floatImage {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+/* ---------- PAGE HERO BANNER ---------- */
+.hero-banner{max-width:1250px;margin:55px auto 40px;padding:65px 70px;min-height:430px;border-radius:32px;background:linear-gradient(135deg,#f7f2ff 0%,#fff 52%,#fff1fa 100%);display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:45px;overflow:hidden;position:relative;box-shadow:0 18px 55px rgba(123,47,247,.12)}
+.hero-banner::before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:rgba(123,47,247,.07);top:-130px;right:25%;}
+.hero-copy{position:relative;z-index:1}.hero-kicker{display:inline-block;padding:8px 16px;border-radius:30px;background:#eee5ff;color:#7b2ff7;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:18px}.hero-copy h1{font-size:clamp(38px,5vw,62px);line-height:1.05;margin:0 0 20px;background:linear-gradient(90deg,#7b2ff7,#f107a3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}.hero-copy p{font-size:18px;line-height:1.8;color:#555;max-width:620px;margin-bottom:30px}.hero-actions{display:flex;gap:14px;flex-wrap:wrap}.hero-btn{display:inline-block;text-decoration:none;padding:14px 25px;border-radius:30px;font-weight:700;transition:.3s ease}.hero-primary{color:white;background:linear-gradient(135deg,#7b2ff7,#f107a3);box-shadow:0 10px 24px rgba(123,47,247,.22)}.hero-secondary{color:#7b2ff7;border:2px solid #7b2ff7;background:white}.hero-btn:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(123,47,247,.22)}.hero-visual{position:relative;z-index:1}.hero-visual img{width:100%;max-width:560px;display:block;margin:auto;border-radius:28px;filter:drop-shadow(0 20px 25px rgba(123,47,247,.12))}
+@media(max-width:900px){.hero-banner{grid-template-columns:1fr;padding:50px 35px;text-align:center}.hero-copy p{margin-left:auto;margin-right:auto}.hero-actions{justify-content:center}.hero-visual img{max-width:500px}}
+@media(max-width:600px){.hero-banner{margin:30px 15px;padding:38px 22px;min-height:auto;border-radius:24px}.hero-copy h1{font-size:40px}.hero-copy p{font-size:16px}.hero-actions{flex-direction:column}.hero-btn{width:100%;text-align:center}}
+
+    
+/* =========================================================
+   RESPONSIVE OVERLAY - keeps every page usable on phones
+   tablets and desktops without changing the existing design
+========================================================= */
+html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img, svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.navbar {
+    width: 100%;
+}
+
+.hero-banner {
+    width: min(1250px, calc(100% - 40px));
+}
+
+@media (max-width: 1100px) {
+    .navbar {
+        height: auto !important;
+        min-height: 80px;
+        flex-wrap: wrap;
+        row-gap: 12px;
+        padding: 14px 24px !important;
+    }
+
+    .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 18px !important;
+    }
+
+    .nav-buttons {
+        flex-shrink: 0;
+    }
+}
+
+@media (max-width: 900px) {
+    .hero-banner {
+        width: calc(100% - 30px);
+        margin: 30px auto !important;
+        grid-template-columns: 1fr !important;
+        text-align: center;
+        padding: 48px 28px !important;
+    }
+
+    .hero-copy {
+        max-width: 760px;
+        margin: 0 auto;
+    }
+
+    .hero-copy p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .hero-visual {
+        width: 100%;
+    }
+
+    .hero-visual img {
+        width: min(100%, 520px) !important;
+        margin: 0 auto;
+    }
+
+    .services-container,
+    .testimonials-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 700px) {
+    .navbar {
+        padding: 12px 16px !important;
+    }
+
+    .logo span {
+        font-size: 20px !important;
+    }
+
+    .logo img {
+        width: 48px !important;
+        height: 48px !important;
+    }
+
+    .nav-buttons {
+        gap: 7px !important;
+    }
+
+    .nav-buttons .btn {
+        padding: 9px 13px !important;
+        font-size: 12px !important;
+    }
+
+    .nav-links {
+        gap: 10px 16px !important;
+    }
+
+    .nav-links a {
+        font-size: 14px !important;
+    }
+
+    .dropdown-menu {
+        left: 50%;
+        transform: translate(-50%, 10px);
+        width: 170px;
+    }
+
+    .dropdown:hover .dropdown-menu {
+        transform: translate(-50%, 0);
+    }
+
+    .hero-banner {
+        width: calc(100% - 24px);
+        padding: 38px 20px !important;
+        border-radius: 24px !important;
+    }
+
+    .hero-copy h1 {
+        font-size: clamp(32px, 10vw, 44px) !important;
+    }
+
+    .hero-copy p {
+        font-size: 15px !important;
+        line-height: 1.7 !important;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        align-items: stretch;
+    }
+
+    .hero-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .services-container,
+    .testimonials-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .services-section,
+    .testimonials-section {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    .service-card {
+        width: 100%;
+    }
+
+    .testimonials-heading h2,
+    .services-heading h2 {
+        font-size: 28px !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .logo {
+        gap: 7px !important;
+    }
+
+    .logo span {
+        font-size: 18px !important;
+    }
+
+    .logo img {
+        width: 42px !important;
+        height: 42px !important;
+    }
+
+    .nav-buttons .btn {
+        padding: 8px 10px !important;
+    }
+
+    .nav-links {
+        gap: 8px 12px !important;
+    }
+
+    .nav-links a {
+        font-size: 13px !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+</style>
+<link rel="stylesheet" href="extra-pages.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <img src="IMG_0104.PNG" alt="Website Logo">
+                <span>My Shoopee</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li class="dropdown">
+                    <a href="products.html">Products ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="products.html">All Products</a>
+                        <a href="products.html">New Arrivals</a>
+                        <a href="products.html">Popular Products</a>
+                    </div>
+                </li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <div class="nav-buttons">
+                <a href="login.html" class="btn login-btn">Login</a>
+                <a href="login.html" class="btn start-btn">Get Started</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero-banner">
+        <div class="hero-copy">
+            <span class="hero-kicker">Welcome</span>
+            <h1>Your journey starts here</h1>
+            <p>Sign in to continue exploring the My Shoopee experience.</p>
+            <div class="hero-actions">
+                <a href="index.html" class="hero-btn hero-primary">Go to Home</a>
+                <a href="login.html" class="hero-btn hero-secondary">Get Started</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <img src="login-hero.svg" alt="Welcome banner illustration">
+        </div>
+    </section>
+
+    <main class="login-page">
+        <div class="login-container">
+            <h1>Welcome Back!</h1>
+            <p>Login to continue</p>
+            <form action="index.html">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="login-button">Login</button>
+            </form>
+            <a href="index.html" class="back">← Back to Home</a>
+        </div>
+    </main>
+
+
+<section class="login-benefits inner-section">
+  <div class="section-heading">
+    <span class="section-tag">WELCOME BACK</span>
+    <h2>Your My Shoopee workspace starts here</h2>
+    <p>Sign in to continue exploring your digital workspace, saved preferences and project-ready services.</p>
+  </div>
+  <div class="login-showcase-grid">
+    <div class="login-visual-card"><img src="login-welcome.svg" alt="Digital workspace welcome illustration"></div>
+    <div class="login-feature-list">
+      <article class="login-feature"><span class="login-feature-icon">✦</span><div><h3>Personalized Experience</h3><p>Keep your journey organized with a simple and consistent experience across the website.</p></div></article>
+      <article class="login-feature"><span class="login-feature-icon">⚡</span><div><h3>Quick Access</h3><p>Move quickly from your account to services, products and project information.</p></div></article>
+      <article class="login-feature"><span class="login-feature-icon">✓</span><div><h3>Project Ready</h3><p>Explore solutions designed for web development, UI/UX, responsive design and digital growth.</p></div></article>
+      <article class="login-feature"><span class="login-feature-icon">♡</span><div><h3>Support When Needed</h3><p>Need help? Connect with the support team through the Contact page anytime.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="login-security-section inner-section">
+  <div class="login-security-grid">
+    <div class="login-security-copy">
+      <span class="section-tag">SECURE ACCESS</span>
+      <h2>Simple access with a security-first experience</h2>
+      <p>Your login area is designed with clear labels, focused input states and a clean interface that makes account access easy to understand.</p>
+      <div class="security-points">
+        <div><strong>01</strong><span>Clear form structure</span></div>
+        <div><strong>02</strong><span>Responsive on every screen</span></div>
+        <div><strong>03</strong><span>Accessible input labels</span></div>
+      </div>
+    </div>
+    <div class="login-visual-card"><img src="login-security.svg" alt="Secure account access illustration"></div>
+  </div>
+</section>
+
+<section class="login-cta-section inner-section">
+  <div class="login-cta-card">
+    <div><span class="section-tag">READY TO EXPLORE?</span><h2>Take the next step with My Shoopee</h2><p>Discover our services, explore the product ecosystem, or tell us what you want to build.</p></div>
+    <div class="hero-actions"><a href="services.html" class="hero-btn hero-primary">Explore Services</a><a href="contact.html" class="hero-btn hero-secondary">Contact Us</a></div>
+  </div>
+</section>
+
+</body>
+</html>
